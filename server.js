@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const pool = require('./config/db');
+const pool = require('./db');
 const dotenv = require('dotenv');
-dotenv.config({ path: './config/config.env'})
+dotenv.config({ path: './env'})
 const app = express();
 
 //Middlewares
