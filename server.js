@@ -3,15 +3,24 @@ const cors = require('cors');
 const morgan = require('morgan');
 const pool = require('./db');
 const dotenv = require('dotenv');
+const path = require('path');
 dotenv.config({ path: './env'})
 const app = express();
+
+
+
 
 //Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-const PORT = process.env.PORT;
+if (process.env.NODE_ENV === "production"){
+// server static react
+    app.use(express.static(path.join(__dirname, "client/build")))
+};
+
+const PORT = process.env.PORT || 3000;
 
 
 app.post("/todos", async (req, res)=> {

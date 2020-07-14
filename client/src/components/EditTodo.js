@@ -4,7 +4,7 @@ const EditTodo = ({ todo }) => {
 
     const [description, setDescription]= useState(todo.description)
 
-
+    
     const updateDescription = async (e) => {
         e.preventDefault();
         try {
