@@ -7,7 +7,7 @@ const CreateTodo = () => {
         e.preventDefault();
         try {
             const body = { description } 
-            const response = await fetch("http://localhost:5000/todos", {
+            const response = await fetch("/todos", {
             method: "POST",
             headers : {
                 "Content-Type":"application/json"
@@ -15,7 +15,6 @@ const CreateTodo = () => {
             body: JSON.stringify(body)
             })
             window.location = "/";
-            console.log(response)
         } catch (err) {
             console.error(err.message)
         }
