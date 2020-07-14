@@ -3,20 +3,38 @@ import React, { Fragment, useState } from 'react';
 const EditTodo = ({ todo }) => {
 
     const [description, setDescription]= useState(todo.description)
+    const [errors, setErrors] = useState({})
 
-    
+    const handleValidation = () => {
+        let fields = description;
+        let errors = {};
+        let formIsValid = true;
+
+        //Name
+        if(!description){
+           formIsValid = false;
+           errors["description"] = "Cannot be empty";
+        }
+        setErrors({errors});
+        return formIsValid;
+    };
+
     const updateDescription = async (e) => {
         e.preventDefault();
         try {
-            const body = { description }
-            const response = await fetch(`/todos/${todo.id}`,{
-                method:"PUT",
-                headers: {
-                    "Content-Type":"application/json"
-                },
-                body: JSON.stringify(body)
-            });
-            window.location = "/"
+            if(handleValidation()){
+                const body = { description }
+                const response = await fetch(`/todos/${todo.id}`,{
+                    method:"PUT",
+                    headers: {
+                        "Content-Type":"application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
+                window.location = "/"
+            }else{
+                alert("Description cannot be empty")
+            };    
         } catch (err) {
             console.error(err.message);
         }
